@@ -79,10 +79,10 @@ return array (
     'normal' => $rootDir . '/lib/fonts/DejaVuSerif',
   ),
   'open sans' => array(
-    '300' => $fontDir . '/open_sans_300_2897ef841755d029cd79326b3a4893ba',
-    'normal' => $fontDir . '/open_sans_normal_43013991c496206686b3f0c129197ee5',
-    'bold' => $fontDir . '/open_sans_bold_96e606aebf881f427389c3b892029fd5',
-    '800' => $fontDir . '/open_sans_800_886c04ca8daf7a5619cb342aabb14b14',
+    '300' => $fontDir . '/open_sans_300_3991bff746d3377656ad3cf53b24fe9e',
+    'normal' => $fontDir . '/open_sans_normal_0c50822862df0e4bc3da7bec4af72b54',
+    'bold' => $fontDir . '/open_sans_bold_16020d134f3ca847d8cdba64e3e9ca33',
+    '800' => $fontDir . '/open_sans_800_54e4dbec225310932e45306345a8c89d',
   ),
   'open sans condensed' => array(
     '300' => $fontDir . '/open_sans_condensed_300_541c9d361a015465537e1b24d3ff0dc2',
