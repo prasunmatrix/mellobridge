@@ -1,0 +1,314 @@
+@charset "utf-8";
+/* CSS Document */
+@media only screen and (max-width:1400px){
+	.sign-up .login-box{
+		height: 400px;
+		overflow-y: auto;
+		scrollbar-width: thin;
+		scrollbar-color: #5E47D2 #ddd;
+		z-index: 9;
+		margin-bottom: 40px;
+	}
+	.login-box::-webkit-scrollbar { width: 8px; border-radius: 20px;}
+	.login-box::-webkit-scrollbar-track {background: #ddd; border-radius: 20px;}
+	.login-box::-webkit-scrollbar-thumb {background-color: #5E47D2; border-radius: 20px;}
+    .forgot-img{
+        width: 240px;
+    }
+    .login-area h1 {
+        font-size: 30px;
+        line-height: 38px;
+    }
+}
+
+@media only screen and (max-width:1200px){
+    .logbt{
+        display: none;
+    }
+    .top-header .slimmenu{
+        position: absolute;
+        width: 300px;
+        right: 0;
+        background: rgba(255, 255, 255, 1);
+        box-shadow: rgb(0 0 0 / 10%) 0px 4px 8px;
+        border-radius: 10px;
+        padding: 25px;
+    }
+    .top-header .nav ul.slimmenu li a{
+        padding: 15px 0;
+    }
+
+    .top-header .nav{
+        position: relative;
+    }
+    .top-header .menu-collapser{
+        text-indent: -3000px;
+    }
+    .nav ul.slimmenu li.has-submenu ul {
+        width: 100%;
+        background: #E1EEFA;
+        box-shadow: rgb(0 0 0 / 10%) 0px 4px 8px;
+        border-radius: 0;
+        overflow: hidden;
+    }
+    .nav ul.slimmenu li.has-submenu ul li{
+        margin: 0;
+        padding: 0 15px;
+    }
+    .nav ul.slimmenu li.has-submenu ul li i{
+        display: none;
+    }
+    ul.slimmenu li .sub-toggle{
+        top: 14px!important;
+    }
+    .top-header{
+        padding: 11px 45px;
+        position: relative;
+    }
+    .banner-area h1{
+        font-size: 45px;
+    }
+    .banner-area h2 {
+        font-size: 35px;
+        padding: 23px 0;
+    }
+    .banner-area h1, .banner-area h2, .banner-area p{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .estimate-area h2{
+        font-size: 37px;
+    }
+    .estimate-area h3 {
+        font-size: 22px;
+        padding: 26px 0;
+    }
+    .estimate-area h4{
+        text-align: center;
+    }
+    .estimate-area-inner .formarea.extramargin {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    .estimate-area-inner .custom-select, .estimate-area-inner .formarea, .estimate-form input.custominput{
+        margin-bottom: 15px;
+    }
+    .estimate-area, .explore-area{
+        padding: 40px;
+    }
+    .estimate-area-inner .formarea{
+        align-items: center;
+    }
+    .banner-area{
+        padding-top: 125px;
+    }
+    .explore-box{
+        width: 80%;
+    }
+    footer{
+        padding: 30px;
+    }
+    .footer-lft {
+        width: 42%;
+    }
+    .footer-rgt {
+        width: 55%;
+    }
+    .nav ul.slimmenu li.loginmenu, .nav ul.slimmenu li.signup{
+        display: block;
+    }
+
+    .shipments{
+        padding: 35px;
+    }
+    .shipments h2 {
+        font-size: 35px;
+        line-height: 47px;
+    }
+    .listingarea li{
+        width: 30%;
+    }
+    .listingarea{
+        text-align: center;
+    }
+    .alert-section, .alert-lft, .alert-rgt{
+        display: block;
+    }
+    .alert-lft, .alert-rgt{
+        width: 100%;
+        box-sizing: border-box
+    }
+    .alert-lft p{
+        padding: 20px 0 0 0;
+    }
+    .alert-rgt{
+        margin-left: 0;
+        display: flex;
+        flex-direction: column;
+    }
+    .alert-lft{
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .inner-wrapper{
+        padding: 0 20px;
+    }
+    body.prohibited{
+        padding-top: 0;
+    }
+    .sign-up .login-box{
+        width: 80%;
+    }
+    .extra-padding{
+        padding: 80px 20px 60px 20px;
+    }
+    .contact-area h2{
+        font-size: 30px;
+    }
+
+    .track-area-rgt{
+        margin-left: 35px;
+    }
+    .extraship{
+        align-items: center;
+    }
+}
+
+@media only screen and (max-width:1023px){
+    .how-arrow{
+        display: none;
+    }
+}
+
+@media only screen and (max-width:991px){
+    .how-img .float-img {
+        left: 26%;
+        top: auto;
+        transform: rotate(92deg);
+        z-index: -1;
+    }
+    .how-it-wrapper .row, .howit-section .row{
+        display: block;
+    }
+    .how-txt{
+        margin-bottom: 20px;
+    }
+    .howit-section p{
+        text-align: center!important;
+        margin-top: 20px;
+    }
+
+    .custom_selection, .customformbtn{
+      margin-bottom: 10px!important;
+    }
+}
+
+@media only screen and (max-width:767px){
+    .estimate-area-inner .formarea{
+        display: inline-block;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .inner-wrapper h1{
+        font-size: 25px;
+    }
+    .inner-wrapper h2{
+        font-size: 18px;
+    }
+    .explore-box {
+        padding: 30px;
+        margin: 20px 0;
+    }
+    footer, .footer-rgt{
+        display: block;
+    }
+    .footer-rgt .footer-menu, .footer-lft, .footer-rgt{
+        width: 100%;
+    }
+    .footer-rgt .footer-menu{
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #fff;
+    }
+    .top-header .slimmenu{
+        right: -20px;
+    }
+    .login-area h1 {
+        font-size: 25px;
+        line-height: 30px;
+    }
+    .login-area h2 {
+        font-size: 18px;
+        line-height: 20px;
+        margin: 15px 0 25px 0;
+    }
+    .login-box, .sign-up .login-box{
+        width: 275px;
+        padding: 35px;
+    }
+    .sign-up .login-box{
+        height: auto;
+        overflow-y: auto;
+        margin-bottom: 0;
+    }
+
+    .inner-top-area.banner-area h1, .shipments h2{
+        font-size: 25px;
+        line-height: normal;
+    }
+    .shipments, .txt-list{
+        display: block;
+    }
+    .shipments h2, .shipments p, .listingarea li{
+        width: 100%;
+        margin: 0;
+        text-align: center;
+    }
+    .shipments p{
+        font-size: 14px;
+    }
+    .listingarea li{
+        margin-bottom: 20px;
+    }
+    .alert-lft{
+        margin-top: 30px;
+    }
+    .txt-list ul{
+        padding-left: 30px;
+    }
+    .small-btn{
+        width: 100%!important;
+    }
+    .contact-area .row{
+        display: block;
+    }
+
+    .track-area, .latest-update, .tracking-history .row, .locate-area .row{
+        display: block;
+    }
+    .track-area-lft, .track-area-rgt, .latest-update .track-area-lft, .latest-update .track-area-rgt, .tracking-history .col, .locate-area .col{
+        width: 100%;
+    }
+    .track-area-rgt{
+        margin-left: 0;
+        margin-top: 45px;
+    }
+    .latest-update .track-area-rgt.align-right{
+        text-align: left;
+        padding-top: 0px;
+        margin-top: 20px;
+    }
+    .extraship h2{
+        padding-left: 0;
+    }
+    .howit-section{
+        padding: 35px;
+    }
+    .how-it-totalwrapper{
+        padding: 50px 0;
+    }
+    .img-area{
+        padding: 20px;
+    }
+ 
+}

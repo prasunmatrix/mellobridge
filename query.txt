@@ -1,0 +1,107 @@
+1.ALTER TABLE `mb_users` ADD `company_name` VARCHAR(255) NOT NULL AFTER `usertype`;
+
+Date:23/05/2022
+1.ALTER TABLE `mb_insurance_price` CHANGE `price` `insurance_price` DECIMAL(10,2) NOT NULL;
+2.ALTER TABLE `mb_insurance_price` ADD `lable_price` DECIMAL(10,2) NOT NULL AFTER `insurance_price`;
+Date:25/05/2022
+ALTER TABLE `mb_shipments` ADD `pricing` TEXT NOT NULL AFTER `tracking_numbers`, ADD `mail_class` VARCHAR(255) NOT NULL AFTER `pricing`, ADD `fees_amount` DECIMAL(10,2) NOT NULL AFTER `mail_class`;
+Date:26/05/2022
+CREATE TABLE `melobridge`.`mb_shipment_tracking` ( `id` INT(11) NOT NULL AUTO_INCREMENT ,  `tracking_number` VARCHAR(255) NOT NULL ,  `tracking_details` TEXT NOT NULL ,  `tracking_by` INT(11) NOT NULL ,  `created_at` DATETIME NOT NULL ,  `updated_at` DATETIME NULL DEFAULT NULL ,    PRIMARY KEY  (`id`)) ENGINE = InnoDB;
+
+Prasun:Date:26/05/2022
+1.INSERT INTO `mb_roles` (`id`, `role_name`, `role_description`, `status`, `created_at`, `updated_at`, `created_by`, `updated_by`, `is_deleted`, `deleted_by`, `deleted_at`) VALUES (NULL, 'Frontend User', 'Frontend User Description', 'A', NULL, NULL, '1', '1', 'N', NULL, NULL);
+2.UPDATE `mb_roles` SET `created_at` = '2022-05-26 20:57:55', `updated_at` = '2022-05-26 20:57:55', `deleted_at` = NULL WHERE `mb_roles`.`id` = 4;
+Date:30/05/2022
+1)CREATE TABLE `melobridge`.`mb_tracking_update` ( `id` INT(11) NOT NULL , `shipment_id` INT(11) NOT NULL , `tracking_number` VARCHAR(255) NOT NULL , `tracking_status` VARCHAR(255) NOT NULL , `created_at` DATETIME NOT NULL , `updated_at` DATETIME NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+2)ALTER TABLE `mb_tracking_update` ADD `tracking_code` VARCHAR(100) NOT NULL AFTER `tracking_number`;
+3)ALTER TABLE `mb_shipments` ADD `status_code` VARCHAR(100) NOT NULL AFTER `postmark_date`;
+Date:02/06/2022
+1)CREATE TABLE `melobridge`.`mb_user_coupon` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `user_id` INT(11) NOT NULL , `coupon_code` VARCHAR(150) NOT NULL , `discount_amount` DECIMAL(10,2) NOT NULL , `valid_from` DATETIME NOT NULL , `valid_upto` DATETIME NOT NULL , `created_at` DATETIME NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+2)ALTER TABLE `mb_user_coupon` ADD `is_deleted` ENUM('Y','N') NOT NULL DEFAULT 'N' AFTER `created_at`, ADD `created_by` INT(11) NOT NULL AFTER `is_deleted`, ADD `deleted_by` INT(11) NOT NULL AFTER `created_by`, ADD `deleted_at` DATETIME NOT NULL AFTER `deleted_by`;
+3)ALTER TABLE `mb_user_coupon` ADD `updated_at` DATETIME NULL DEFAULT NULL AFTER `deleted_at`;
+4)ALTER TABLE `mb_user_coupon` CHANGE `deleted_by` `deleted_by` INT(11) NULL DEFAULT NULL;
+5)ALTER TABLE `mb_user_coupon` CHANGE `deleted_at` `deleted_at` DATETIME NULL DEFAULT NULL;
+Date :03/06/2022
+1)ALTER TABLE `mb_user_coupon` ADD `updated_by` INT(11) NULL DEFAULT NULL AFTER `deleted_at`;
+2)RENAME TABLE `melobridge`.`mb_insurance_price` TO `melobridge`.`mb_settings`;
+3)ALTER TABLE `mb_settings` ADD `company_name` VARCHAR(255) NOT NULL AFTER `lable_price`, ADD `admin_email` VARCHAR(255) NOT NULL AFTER `company_name`, ADD `logo` TEXT NOT NULL AFTER `admin_email`, ADD `phone` VARCHAR(15) NOT NULL AFTER `logo`;
+
+Date:06/06/2022
+1)CREATE TABLE `melobridge`.`mb_states` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `country_id` INT(11) NOT NULL , `name` VARCHAR(100) NOT NULL , `created_at` DATETIME NULL DEFAULT NULL , `created_by` INT(11) NOT NULL , `updated_at` DATETIME NULL DEFAULT NULL , `updated_by` DATETIME NULL DEFAULT NULL , `is_deleted` ENUM('Y','N') NOT NULL DEFAULT 'N' , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+2)ALTER TABLE `mb_states` ADD `deleted_at` DATETIME NULL DEFAULT NULL AFTER `is_deleted`;
+3)ALTER TABLE `mb_states` ADD `deleted_by` INT(11) NULL DEFAULT NULL AFTER `deleted_at`;
+4)ALTER TABLE `mb_states` CHANGE `updated_by` `updated_by` INT(11) NULL DEFAULT NULL;
+5)ALTER TABLE `mb_states` ADD `status` ENUM('A','I','D') NOT NULL DEFAULT 'A' AFTER `name`;
+6)CREATE TABLE `melobridge`.`mb_transactions` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `user_id` INT(11) NOT NULL , `transaction_id` TEXT NOT NULL , `amount` DECIMAL(10,2) NOT NULL , `transaction_date` DATETIME NOT NULL , `created_by` INT(11) NULL DEFAULT NULL , `updated_at` DATETIME NULL DEFAULT NULL , `created_at` DATETIME NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+7)ALTER TABLE `mb_transactions` ADD `is_deleted` ENUM('Y','N') NOT NULL DEFAULT 'N' AFTER `created_at`;
+
+Date:07/06/2022
+1)ALTER TABLE `mb_states` ADD `state_code` VARCHAR(100) NOT NULL AFTER `name`;
+2)UPDATE `mb_module_functionalities` SET `function_name` = 'Setting List Access' WHERE `mb_module_functionalities`.`id` = 1;
+3)UPDATE `mb_module_functionalities` SET `function_name` = 'Setting Update' WHERE `mb_module_functionalities`.`id` = 2;
+4)INSERT INTO `mb_modules` (`id`, `parent_id`, `module_name`, `module_description`, `slug`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '0', 'Coupon Management', 'Coupon management details', '', 'A', 'N', '2022-06-07 00:00:00', '2022-06-07 00:00:00', '1', '0', '0', NULL);
+5)INSERT INTO `mb_module_functionalities` (`id`, `module_id`, `function_name`, `function_description`, `slug`, `sort_order`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '4', 'Coupon List Access', '', 'coupon.list', '1', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+6)INSERT INTO `mb_role_permissions` (`id`, `role_id`, `module_id`, `module_functionality_id`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '3', '4', '21', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+7)INSERT INTO `mb_module_functionalities` (`id`, `module_id`, `function_name`, `function_description`, `slug`, `sort_order`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '4', 'Coupon Add', '', 'coupon-add', '1', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+8)INSERT INTO `mb_role_permissions` (`id`, `role_id`, `module_id`, `module_functionality_id`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '3', '4', '22', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+9)INSERT INTO `mb_module_functionalities` (`id`, `module_id`, `function_name`, `function_description`, `slug`, `sort_order`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '4', 'Coupon Edit', '', 'coupon.edit', '1', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+10)INSERT INTO `mb_role_permissions` (`id`, `role_id`, `module_id`, `module_functionality_id`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '3', '4', '23', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+11)INSERT INTO `mb_module_functionalities` (`id`, `module_id`, `function_name`, `function_description`, `slug`, `sort_order`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '4', 'Coupon delete', '', 'coupon-delete', '1', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+12)INSERT INTO `mb_role_permissions` (`id`, `role_id`, `module_id`, `module_functionality_id`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '3', '4', '24', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+13)INSERT INTO `mb_modules` (`id`, `parent_id`, `module_name`, `module_description`, `slug`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '0', 'Shipment Mnagement', '', '', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+14)INSERT INTO `mb_module_functionalities` (`id`, `module_id`, `function_name`, `function_description`, `slug`, `sort_order`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '5', 'Shipment List Access', '', 'shipment.list', '1', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+15)INSERT INTO `mb_role_permissions` (`id`, `role_id`, `module_id`, `module_functionality_id`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '3', '5', '25', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+16)INSERT INTO `mb_module_functionalities` (`id`, `module_id`, `function_name`, `function_description`, `slug`, `sort_order`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '5', 'Shipment Edit', '', 'shipment.edit', '1', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+17)INSERT INTO `mb_role_permissions` (`id`, `role_id`, `module_id`, `module_functionality_id`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '3', '5', '26', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+18)INSERT INTO `mb_module_functionalities` (`id`, `module_id`, `function_name`, `function_description`, `slug`, `sort_order`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '5', 'Shipment Details', '', 'shipment.detail', '1', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+19)INSERT INTO `mb_role_permissions` (`id`, `role_id`, `module_id`, `module_functionality_id`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '3', '5', '27', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+20)INSERT INTO `mb_module_functionalities` (`id`, `module_id`, `function_name`, `function_description`, `slug`, `sort_order`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '5', 'Shipment Delete', '', 'shipment.delete', '1', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+21)INSERT INTO `mb_role_permissions` (`id`, `role_id`, `module_id`, `module_functionality_id`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '3', '5', '28', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+22)INSERT INTO `mb_module_functionalities` (`id`, `module_id`, `function_name`, `function_description`, `slug`, `sort_order`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '5', 'Shipment Tracking', '', 'shipment.tracking-detail', '1', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+23)INSERT INTO `mb_role_permissions` (`id`, `role_id`, `module_id`, `module_functionality_id`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '3', '5', '29', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+24)INSERT INTO `mb_modules` (`id`, `parent_id`, `module_name`, `module_description`, `slug`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '0', 'Front User Management', '', '', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+25)INSERT INTO `mb_module_functionalities` (`id`, `module_id`, `function_name`, `function_description`, `slug`, `sort_order`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '6', 'User List Access', '', 'user-management.front-user.list', '1', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+26)INSERT INTO `mb_role_permissions` (`id`, `role_id`, `module_id`, `module_functionality_id`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '3', '6', '30', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+27)INSERT INTO `mb_module_functionalities` (`id`, `module_id`, `function_name`, `function_description`, `slug`, `sort_order`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '6', 'User Add', '', 'user-management.front-user.add', '1', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+28)INSERT INTO `mb_role_permissions` (`id`, `role_id`, `module_id`, `module_functionality_id`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '3', '6', '31', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+29)INSERT INTO `mb_module_functionalities` (`id`, `module_id`, `function_name`, `function_description`, `slug`, `sort_order`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '6', 'User Edit', '', 'user-management.front-user-edit', '1', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+30)INSERT INTO `mb_role_permissions` (`id`, `role_id`, `module_id`, `module_functionality_id`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '3', '6', '32', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+31)INSERT INTO `mb_module_functionalities` (`id`, `module_id`, `function_name`, `function_description`, `slug`, `sort_order`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '6', 'User Delete', '', 'user-management.front-user-delete', '1', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+32)INSERT INTO `mb_role_permissions` (`id`, `role_id`, `module_id`, `module_functionality_id`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '3', '6', '33', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+33)INSERT INTO `mb_role_permissions` (`id`, `role_id`, `module_id`, `module_functionality_id`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '3', '2', '18', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+34)INSERT INTO `mb_module_functionalities` (`id`, `module_id`, `function_name`, `function_description`, `slug`, `sort_order`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '6', 'User Status', '', 'user-management.front-reset-user-status', '1', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+35)INSERT INTO `mb_role_permissions` (`id`, `role_id`, `module_id`, `module_functionality_id`, `status`, `is_deleted`, `created_at`, `updated_at`, `created_by`, `updated_by`, `deleted_by`, `deleted_at`) VALUES (NULL, '3', '6', '34', 'A', 'N', NULL, NULL, '1', '0', '0', NULL);
+
+
+Prasun:Date:07/06/2022
+1.UPDATE `mb_country` SET `country_name` = 'USA' WHERE `mb_country`.`id` = 1;
+
+Date:15/06/2022
+1)ALTER TABLE `mb_shipments` ADD `first_name` VARCHAR(255) NOT NULL AFTER `request_id`, ADD `last_name` VARCHAR(255) NOT NULL AFTER `first_name`, ADD `is_signature_confirm` ENUM('Yes','No') NOT NULL DEFAULT 'No' AFTER `last_name`;
+2)ALTER TABLE `mb_shipments` ADD `shape` VARCHAR(255) NOT NULL AFTER `mail_class`, ADD `width` DECIMAL(10,2) NOT NULL AFTER `shape`, ADD `height` DECIMAL(10,2) NOT NULL AFTER `width`, ADD `length` DECIMAL(10,2) NOT NULL AFTER `height`;
+3)ALTER TABLE `mb_shipments` ADD `shape_unit` VARCHAR(100) NOT NULL AFTER `length`;
+4)ALTER TABLE `mb_shipments` CHANGE `request_id` `request_id` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+5)ALTER TABLE `mb_shipments` CHANGE `reference` `reference` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+6)ALTER TABLE `mb_shipments` CHANGE `postmark_date` `postmark_date` DATETIME NULL DEFAULT NULL;
+7)ALTER TABLE `mb_shipments` CHANGE `status` `status` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+Date:17/06/2022
+1)CREATE TABLE `melobridge`.`mb_wallet` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `wallet_amount` DECIMAL(10,2) NOT NULL , `user_id` INT(11) NOT NULL , `created_at` DATE NOT NULL , `updated_at` DATE NOT NULL , `is_deleted` ENUM('Y','N') NOT NULL DEFAULT 'N' , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+2)ALTER TABLE `mb_wallet` ADD `transaction_id` TEXT NULL DEFAULT NULL AFTER `wallet_amount`;
+3)CREATE TABLE `melobridge`.`mb_wallet_history` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `customer_id` INT(11) NOT NULL , `amount` DECIMAL(10,2) NOT NULL , `payment_type` TINYINT(1) NOT NULL DEFAULT '1' COMMENT '1=stripe payment,2=admin added amount in wallet,3=create shipment deduction' , `transaction_id` TEXT NULL DEFAULT NULL , `transaction_date` DATE NULL DEFAULT NULL , `created_at` DATE NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+4)ALTER TABLE `mb_wallet_history` ADD `updated_at` DATE NOT NULL AFTER `created_at`, ADD `deleted_at` DATE NOT NULL AFTER `updated_at`;
+5)ALTER TABLE `mb_wallet_history` ADD `wallet_id` INT(11) NOT NULL AFTER `id`;
+6)ALTER TABLE `mb_user_coupon` CHANGE `valid_from` `valid_from` DATE NOT NULL;
+7)ALTER TABLE `mb_user_coupon` CHANGE `valid_upto` `valid_upto` DATE NOT NULL;
+8)ALTER TABLE `mb_users` CHANGE `company_name` `company_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
+
+Date:20/06/2022
+1)ALTER TABLE `mb_settings` CHANGE `insurance_price` `insurance_price` INT(11) NOT NULL;
+Date:21/06/2022
+1)ALTER TABLE `mb_shipments` ADD `order_id` VARCHAR(255) NOT NULL AFTER `request_id`;
+Prasun:Date:23/06/2022
+1. ALTER TABLE `mb_shipments`  ADD `is_insurance` TINYINT(1) NOT NULL DEFAULT '0'  AFTER `fees_amount`,  ADD `client_profit_price` DECIMAL(10,2) NOT NULL  AFTER `is_insurance`,  ADD `insurance_price` DECIMAL(10,2) NOT NULL  AFTER `client_profit_price`,  ADD `totalpay` DECIMAL(10,2) NOT NULL  AFTER `insurance_price`,  ADD `shiping_date` VARCHAR(255) NOT NULL  AFTER `totalpay`;
+2.ALTER TABLE `mb_shipments` CHANGE `is_signature_confirm` `is_signature_confirm` TINYINT(1) NOT NULL DEFAULT '0';
+3.ALTER TABLE `mb_shipments` CHANGE `order_id` `order_id` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+4.ALTER TABLE `mb_shipments` CHANGE `first_name` `first_name` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `last_name` `last_name` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+5.ALTER TABLE `mb_shipments` CHANGE `status_code` `status_code` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+6.ALTER TABLE `mb_shipments` CHANGE `is_signature_confirm` `is_signature_confirm` ENUM('Yes','No','','') NOT NULL DEFAULT 'No', CHANGE `is_insurance` `is_insurance` ENUM('Yes','No','','') NOT NULL DEFAULT 'No';

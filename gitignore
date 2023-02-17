@@ -1,0 +1,5 @@
+/vendor
+/.vscode
+.env
+package-lock.json
+composer.lock
